@@ -15,6 +15,6 @@ Another common cause of concern is genetic recombination. Genetic recombination 
 - a typical mendelian genetics based punnett square generator (It doesnt take care of recombination, it just warns that its going to happen)
 - a teaching tool for mendelian genetics
 
-#### Summary for other coders:
+#### Short summary for other coders:
 - The server side of the code is python and does the core genetics-ey stuff, to produce the core punnetSquare data
-- The client side uses jQuery, handlebars templates and coffeeScript. It mainly does ui stuff and parsing of the input genotypes
+- The client side uses jQuery, handlebars templates and coffeeScript. It mainly does ui stuff and parsing of the input genotypes. UI components are from twitter bootstrap.
