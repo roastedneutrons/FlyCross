@@ -3,6 +3,8 @@ isValidChar = (s) -> true
 parseErr = (msg,frag) -> {"error":msg,"frag":frag}
 
 checkStructure = (fly) ->
+   if fly.length==1
+      return parseErr("No Fly!", "")
    if fly.length != 3
       return parseErr("3 pairs of chromosomes are needed: ",JSON.stringify(fly))
    for pair in fly
@@ -142,6 +144,30 @@ window.validateFly = (id,sex) ->
       $("#"+id+"Msg").html("")
       $('#o'+id).html(geneHtml(f.fly))
       window.punnettReq[id] = f.fly
+
+window.validateChild = ->
+   s = $("#child").val()
+   if s.length==0
+      $("#childBox").removeClass("error")
+      $("#childBox").addClass("success")
+      $("#childMsg").html("")
+      $("#ochild").html("")
+      window.punnettReq["child"] = ""
+   else
+      f = parseFly(s)
+      if f.error
+         $("#childBox").removeClass("success")
+         $("#childBox").addClass("error")
+         $("#childMsg").html(f.error)
+         $("#ochild").html("")
+         window.punnettReq["child"] = {"error":f.error}
+      else
+         $("#childBox").removeClass("error")
+         $("#childBox").addClass("success")
+         $("#childMsg").html("")
+         $("#ochild").html(geneHtml(f.fly))
+         window.punnettReq["child"] = f.fly      
+
       
 window.parseBalancers = ->
    genes=parseCommaSepGenes($('#balancers').val())
@@ -189,9 +215,9 @@ window.loadDummy = ->
    $('#constraints').val(data["constraints"])
 
 window.makePunnettRequest = ->  
-   validateFly("father","M");
-   validateFly("mother","F");
-   validateFly("child");
+   validateFly("father","M")
+   validateFly("mother","F")
+   validateChild()
    parseBalancers()
    parseMarkers()
    parseConstraints()
