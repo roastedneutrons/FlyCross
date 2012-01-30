@@ -213,9 +213,9 @@ window.loadDummy = ->
    $('#constraints').val(data["constraints"])
 
 window.makePunnettRequest = ->  
-   validateFly("father","M");
-   validateFly("mother","F");
-   validateChild();
+   validateFly("father","M")
+   validateFly("mother","F")
+   validateChild()
    parseBalancers()
    parseMarkers()
    parseConstraints()
