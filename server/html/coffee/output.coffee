@@ -10,11 +10,18 @@ makeLegend = (title,arr,colors) ->
       rows.push legendRowTpl({"txt":txt,"color":tbl[txt]})
    legendTpl({"title":title,"rows":rows})
 
-showLegend = (flyMatrix) ->
+showLegend = (flyMatrix,childGenotype) ->
    gLegends = []
    pLegends = []
+   window.foundChild=false
    for row in flyMatrix
       for fly in row
+         #alert (childGenotype+ " c|f "+fly.genotype)
+         if childGenotype == fly.genotype
+            fly.isChild = true
+            window.foundChild=true
+         else
+            fly.isChild = false
          g = fly.genotype
          idx = gLegends.indexOf g 
          if idx == -1
@@ -30,6 +37,8 @@ showLegend = (flyMatrix) ->
             pLegends.push p
          else
             fly.pLegendIdx = idx
+   if not window.foundChild
+      alert "The cross you have set up does not produce the progeny you have mentioned"
 
    $("#pLegend").html makeLegend("Phenotypes",pLegends,pColors)
    $("#gLegend").html makeLegend("Genotypes",gLegends,gColors)
@@ -37,6 +46,18 @@ showLegend = (flyMatrix) ->
 colorify = (flyMatrix) ->
    window.stickyFlyPanel=""
    flyPanelTpl = Handlebars.compile($("#flyPanelTpl").html())
+   clickHighlight = (fly)->
+      window.stickyFlyPanel = flyPanelTpl(fly)
+      $(".pDiv").removeClass("punCellClickedEqual")
+      $(".pDiv").removeClass("punCellClickedUnequal")
+      for row,k in flyMatrix
+         for cell,l in row
+            if cell.pLegendIdx==fly.pLegendIdx
+               if cell.gLegendIdx==fly.gLegendIdx
+                  $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedEqual")
+               else
+                  $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedUnequal")
+   
    $("body").click ->
       $(".pDiv").removeClass("punCellClickedEqual")
       $(".pDiv").removeClass("punCellClickedUnequal")
@@ -71,16 +92,19 @@ colorify = (flyMatrix) ->
                $(".pDiv").removeClass("punCellHoveredUnequal")
             $(this).click (event)->
                event.stopPropagation()
-               window.stickyFlyPanel = flyPanelTpl(fly)
-               $(".pDiv").removeClass("punCellClickedEqual")
-               $(".pDiv").removeClass("punCellClickedUnequal")
-               for row,k in flyMatrix
-                  for cell,l in row
-                     if cell.pLegendIdx==fly.pLegendIdx
-                        if cell.gLegendIdx==fly.gLegendIdx
-                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedEqual")
-                        else
-                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedUnequal")
+               clickHighlight(fly)
+            if fly.isChild
+               clickHighlight(fly)
+#               window.stickyFlyPanel = flyPanelTpl(fly)
+#               $(".pDiv").removeClass("punCellClickedEqual")
+#               $(".pDiv").removeClass("punCellClickedUnequal")
+#               for row,k in flyMatrix
+#                  for cell,l in row
+#                     if cell.pLegendIdx==fly.pLegendIdx
+#                        if cell.gLegendIdx==fly.gLegendIdx
+#                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedEqual")
+#                        else
+#                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedUnequal")
 
 
 window.showPunnett = (pun) ->
@@ -93,7 +117,7 @@ window.showPunnett = (pun) ->
       rows.push rowTpl({"gamete":pun["fly1Axis"][i],"flies":r})
    punHTML = punTpl({"hdr":hdrHTML,"rows":rows})
    $("#punSqr").html(punHTML)
-   showLegend(pun["punnetSquare"])
+   showLegend(pun["punnetSquare"],pun["reformattedChild"])
    colorify(pun["punnetSquare"])  
    $("#punSqr").scrollTop($("#punSqr").position().top)
    $(".punTitleCell").mouseenter ->

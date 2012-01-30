@@ -38,7 +38,7 @@ class CheckCrossReply(webapp.RequestHandler):
 		else:
 			child=Fly(childStr)
 
-		punnettSqr=json.dumps(punnettDict(father,mother))
+		punnettSqr=json.dumps(punnettDict(father,mother,child))
 		self.response.out.write(punnettSqr)
 
 class Echo(webapp.RequestHandler):

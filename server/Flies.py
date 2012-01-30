@@ -183,7 +183,7 @@ def punnett(fly1,fly2):
 			  fly2.gametes,
 			  punnettSquare)
 
-def punnettDict(fly1,fly2):
+def punnettDict(fly1,fly2,child):
 	fly1AxisChr,fly2AxisChr,punnettSqr=punnett(fly1,fly2)
 
 	# Convert the chromosome object filled gametes to strings
@@ -192,6 +192,10 @@ def punnettDict(fly1,fly2):
 	
 	genotypeMappings={}
 	phenotypeMappings={}
+	if child:
+		reformattedChildGenotype=genotypeMappings[str(child.flyHash)]=str(child)
+	else:
+		reformattedChildGenotype=""
 	p=[]
 	for row in range(len(punnettSqr)):
 		pRow=[]
@@ -221,5 +225,6 @@ def punnettDict(fly1,fly2):
 		p.append(pRow)
 	return {'fly1Axis':fly1Axis,
 			  'fly2Axis':fly2Axis,
+			  'reformattedChild':reformattedChildGenotype,
 			  'punnetSquare':p}
 
