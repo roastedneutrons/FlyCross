@@ -63,6 +63,7 @@ colorify = (flyMatrix) ->
    $("body").click ->
       $(".pDiv").removeClass("punCellClickedEqual")
       $(".pDiv").removeClass("punCellClickedUnequal")
+      $("#punHoverMsg").html("")
    $("#punTable").find("tr").each (i) -> 
       $(this).find("td").each (j) -> 
          if i && j
@@ -100,6 +101,7 @@ colorify = (flyMatrix) ->
 
 
 window.showPunnett = (pun) ->
+   $("#backBtnContainer").html "<input type=\'submit\' value=\'Back\' onClick=\'inputMode();return false\'  class=\"btn primary\"/>"
    hdrTpl = Handlebars.compile($("#punHdrTpl").html())
    rowTpl = Handlebars.compile($("#punRowTpl").html())
    punTpl = Handlebars.compile($("#punTpl").html())
