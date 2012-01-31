@@ -131,6 +131,9 @@ window.parseFly = (f,gender=null) ->
    return {"fly":ret} 
 
 window.validateFly = (id,sex) ->
+   txt=$("#"+id).val()
+   if txt[0] == "$"#easter egg for loading dummies
+      loadDummy(txt.substr(1,txt.length))
    f = parseFly($("#"+id).val(),sex)
    if f.error
       $("#"+id+"Box").removeClass("success")
@@ -203,8 +206,8 @@ window.parseConstraints = ->
       $("#constraintsMsg").html("")
    window.punnettReq["constraints"] = constraints
 
-window.loadDummy = -> 
-   data = window[$("#crossNo").val()]
+window.loadDummy = (crossNo)-> 
+   data = window["cross"+crossNo]
    $('#father').val(data["father"])
    $('#mother').val(data["mother"])
    $('#child').val(data["child"])
