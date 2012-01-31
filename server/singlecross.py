@@ -9,21 +9,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 
-class MainPage(webapp.RequestHandler):
-	def get(self):
-		self.redirect("/html/cross.html")
-#		self.response.out.write("""
-#			<html>
-#			  <body>
-#			    <form action="/checkCross" method="post">
-#				   <div><textarea name="data" rows="5" cols="100">"""+json.dumps(dummyFlies.cross1)+"""</textarea></div>
-#				   </br>
-#				   <div><input type="submit" value="Check cross"></div>
-#			    </form>
-#			  </body>
-#			</html>""")
-
-class CheckCrossReply(webapp.RequestHandler):
+class Analyzer(webapp.RequestHandler):
 	def post(self):
 		jsonDataFromCS=json.loads(cgi.escape(self.request.body))
 		constraints=jsonDataFromCS['constraints']
@@ -42,14 +28,14 @@ class CheckCrossReply(webapp.RequestHandler):
 		self.response.out.write(punnettSqr)
 
 class Echo(webapp.RequestHandler):
+	def get(self):
+		self.response.out.write("Echo, cho, ho, o")
 	def post(self):
 		self.response.out.write(self.request.body)
 
 
-application = webapp.WSGIApplication(
-                                     [('/', MainPage),
-                                      ('/echo', Echo),
-                                      ('/checkCross', CheckCrossReply)],
+application = webapp.WSGIApplication([('/api/singlecross/echo', Echo),
+                                      ('/api/singlecross/analyze', Analyzer)],
                                      debug=True)
 
 def main():

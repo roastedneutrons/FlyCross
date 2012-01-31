@@ -227,7 +227,7 @@ window.makePunnettRequest = ->
       if val.error
          alert ("First clear all the highlighted errors!")
          return
-   server.post("/checkCross",JSON.stringify(window.punnettReq),handler)
+   server.post("/api/singlecross/analyze",JSON.stringify(window.punnettReq),handler)
 
 geneHtml = (fly) ->
    chromosome = Handlebars.compile($("#chromosomeTpl").html())

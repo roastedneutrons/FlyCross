@@ -4,8 +4,20 @@ runtime: python
 api_version: 1
 
 handlers:
-- url: /html
-  static_dir: html
+- url: /common
+  static_dir: common
+
+- url: /singlecross
+  static_dir: singlecross
+
+- url: /multicross
+  static_dir: multicross
+
+- url: /api/singlecross/.*
+  script: singlecross.py
+
+- url: /api/multicross/.*
+  script: multicross.py
 
 - url: /.*
-  script: validateCross.py
+  script: index.py
