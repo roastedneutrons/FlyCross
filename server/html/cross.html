@@ -99,6 +99,8 @@ handler = function(data) {
 window.inputMode = ->
    $("#output").hide()
    $("#topErrorMsg").html("")
+   $("#punHoverMsg").html("")
+   $("#punSqr").html("")
    $("#input").show()
 window.outputMode = -> 
    $("#input").hide()
@@ -117,8 +119,23 @@ $ ->
 </head>
 <body>
 
-<div id="input">
-Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='submit' value='Load' onClick='loadDummy();return false'  class="btn primary"/>
+    <div class="topbar" data-scrollspy="scrollspy"> 
+      <div class="topbar-inner"> 
+        <div class="container"> 
+          <a class="brand" href="#">flyCrosser</a> 
+          <ul class="nav"> 
+            <li class="active"><a href="#help">Help</a></li> 
+            <li><a href="#about">About</a></li> 
+          </ul> 
+        </div> 
+      </div> 
+    </div> 
+
+<div class = "row" style="height:50px">&nbsp;</div>
+<div id="input" class="row">
+<div class="row" style="padding-left:50px; padding-bottom:10px">
+   Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='submit' value='Load' onClick='loadDummy();return false'  class="btn primary"/>
+</div>
 <form>
 <div class="row">
      <div class='span8'>
@@ -135,7 +152,7 @@ Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='su
           <div align="center" id='omother'></div>
        </div><!-- /clearfix --> 
        <div id="childBox" class="clearfix"> 
-          <label for="errorInput">Progeny&nbsp;&nbsp;&nbsp;</label> 
+          <label for="errorInput">Progeny&nbsp;&nbsp;&nbsp;<br/>(optional)&nbsp;&nbsp;&nbsp;</label> 
           <input id="child" name="xlInput" size="30" type="text" />
           <span id="childMsg" align="center" class="help-block"></span> 
           <div align="center" id='ochild'></div>
@@ -174,8 +191,9 @@ Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='su
      </div>
 </div>
 </form>
-
-<input type='button' value='Make Punnett Square' onClick='makePunnettRequest();return false' class="btn primary"/><span id="oMakePunnettBtn"></span>
+<div class="row" style="padding-left:50px">
+   <input type='button' value='Make Punnett Square' onClick='makePunnettRequest();return false' class="btn primary"/><span id="oMakePunnettBtn"></span>
+</div>
 </div>
 <!--div id='response'></div-->
 <div id="output">
