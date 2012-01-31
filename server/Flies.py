@@ -226,5 +226,5 @@ def punnettDict(fly1,fly2,child):
 	return {'fly1Axis':fly1Axis,
 			  'fly2Axis':fly2Axis,
 			  'reformattedChild':reformattedChildGenotype,
-			  'punnetSquare':p}
+			  'punnettSquare':p}
 

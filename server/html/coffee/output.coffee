@@ -16,7 +16,6 @@ showLegend = (flyMatrix,childGenotype) ->
    window.foundChild=false
    for row in flyMatrix
       for fly in row
-         #alert (childGenotype+ " c|f "+fly.genotype)
          if childGenotype == fly.genotype
             fly.isChild = true
             window.foundChild=true
@@ -38,7 +37,9 @@ showLegend = (flyMatrix,childGenotype) ->
          else
             fly.pLegendIdx = idx
    if not window.foundChild
-      alert "The cross you have set up does not produce the progeny you have mentioned"
+      msg="The cross you have set up does not produce the progeny you have mentioned"
+      topErrorMsgTpl = Handlebars.compile($("#topErrorMsgTpl").html())
+      $("#topErrorMsg").html(topErrorMsgTpl(msg))
 
    $("#pLegend").html makeLegend("Phenotypes",pLegends,pColors)
    $("#gLegend").html makeLegend("Genotypes",gLegends,gColors)
@@ -48,6 +49,7 @@ colorify = (flyMatrix) ->
    flyPanelTpl = Handlebars.compile($("#flyPanelTpl").html())
    clickHighlight = (fly)->
       window.stickyFlyPanel = flyPanelTpl(fly)
+      $("#punHoverMsg").html(window.stickyFlyPanel)
       $(".pDiv").removeClass("punCellClickedEqual")
       $(".pDiv").removeClass("punCellClickedUnequal")
       for row,k in flyMatrix
@@ -95,16 +97,6 @@ colorify = (flyMatrix) ->
                clickHighlight(fly)
             if fly.isChild
                clickHighlight(fly)
-#               window.stickyFlyPanel = flyPanelTpl(fly)
-#               $(".pDiv").removeClass("punCellClickedEqual")
-#               $(".pDiv").removeClass("punCellClickedUnequal")
-#               for row,k in flyMatrix
-#                  for cell,l in row
-#                     if cell.pLegendIdx==fly.pLegendIdx
-#                        if cell.gLegendIdx==fly.gLegendIdx
-#                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedEqual")
-#                        else
-#                           $("#fly_"+k+"_"+l).find("div").addClass("punCellClickedUnequal")
 
 
 window.showPunnett = (pun) ->
@@ -113,12 +105,12 @@ window.showPunnett = (pun) ->
    punTpl = Handlebars.compile($("#punTpl").html())
    hdrHTML = hdrTpl(pun)
    rows = []
-   for r,i in pun["punnetSquare"]
+   for r,i in pun["punnettSquare"]
       rows.push rowTpl({"gamete":pun["fly1Axis"][i],"flies":r})
    punHTML = punTpl({"hdr":hdrHTML,"rows":rows})
    $("#punSqr").html(punHTML)
-   showLegend(pun["punnetSquare"],pun["reformattedChild"])
-   colorify(pun["punnetSquare"])  
+   showLegend(pun["punnettSquare"],pun["reformattedChild"])
+   colorify(pun["punnettSquare"])  
    $("#punSqr").scrollTop($("#punSqr").position().top)
    $(".punTitleCell").mouseenter ->
       gametePanelTpl = Handlebars.compile($("#gametePanelTpl").html())

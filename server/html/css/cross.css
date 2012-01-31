@@ -98,4 +98,10 @@ hr {
    border-color:#8888aa;
    padding:5px;
 }
+.topErrMsg {
+   border-style:solid;
+   border-color:#aa4444;
+   text-align:center;
+   padding:5px;
+}
 

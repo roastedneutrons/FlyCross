@@ -67,6 +67,12 @@ handler = function(data) {
    </div>
 </script>
 
+<script id="topErrorMsgTpl" type="text/x-handlebars-template">
+   <div style="padding:50px">
+   <div class= "topErrMsg">
+      <B>{{this}}</B> 
+   </div></div>
+</script>
 <script id="punHdrTpl" type="text/x-handlebars-template">
       <tr><td>{{#each fly2Axis}}</td><td class="punHdrCell punTitleCell" gamete="{{this}}"><div class ="vertical">{{this}}</div>{{/each}}</td></tr>
 </script>
@@ -90,8 +96,13 @@ handler = function(data) {
 </script>
 
 <script type="text/coffeescript">
-window.inputMode = -> $("#output").hide();$("#input").show()
-window.outputMode = -> $("#input").hide();$("#output").show()
+window.inputMode = ->
+   $("#output").hide()
+   $("#topErrorMsg").html("")
+   $("#input").show()
+window.outputMode = -> 
+   $("#input").hide()
+   $("#output").show()
 $ ->
    window.punnettReq = {}
    inputMode()
@@ -169,6 +180,7 @@ Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='su
 <!--div id='response'></div-->
 <div id="output">
    <input type='submit' value='Back' onClick='inputMode();return false'  class="btn primary"/>
+   <div id = "topErrorMsg" class="row" style="text-align:center"></div>
    <div class="row">
       <div id="punSqr" class="span8"></div>
       <div id="punHoverMsg" class="span8"></div>
