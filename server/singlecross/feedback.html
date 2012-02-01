@@ -11,15 +11,56 @@
 <script type="text/coffeescript" src="coffee/navbar.coffee"></script>
 
 <script type="text/coffeescript">
+window.validateEmail = ->
+  email=$("#email").val()
+  emailRegEx = new RegExp("^[-_.a-z0-9]+@[-_a-z0-9]+\.[a-z]{2,4}$")
+  if emailRegEx.test(email)
+    $("#emailBox").removeClass("error")
+    $("#emailBox").addClass("success")
+    window.formData['email']=email
+  else
+    $("#emailBox").removeClass("success")
+    $("#emailBox").addClass("error")
+    window.formData['email']={"error":"Invalid email"}
+
+window.validateTitle = ->
+  title=$("#title").val()
+  if title.length >1
+    $("#titleBox").removeClass("error")
+    $("#titleBox").addClass("success")
+    window.formData['title']=title
+  else
+    $("#titleBox").removeClass("success")
+    $("#titleBox").addClass("error")
+    window.formData['title']={"error":"Too short"}
+
+window.validateBody = ->
+  body=$("#body").val()
+  if body.length >10
+    $("#bodyBox").removeClass("error")
+    $("#bodyBox").addClass("success")
+    window.formData['body']=body
+  else
+    $("#bodyBox").removeClass("success")
+    $("#bodyBox").addClass("error")
+    window.formData['body']={"error":"Too short"}
+
 $ ->
   $("#navFeedback").addClass("active")
   window.formData = {}
+  $("#email").blur -> validateEmail()
+  $("#title").blur -> validateTitle()
+  $("#body").blur -> validateBody()
   $("#submit").click ->
     window.formData['utilName']="singlecross"
-    window.formData['email']=$("#email").val()
-    window.formData['title']=$("#title").val()
-    window.formData['body']=$("#body").val()
+    validateEmail()
+    validateTitle()
+    validateBody()
     #alert JSON.stringify(window.formData)
+    for id,val of window.formData
+      if val.error
+        alert ("First clear all the highlighted errors!")
+        return
     server.post("/feedback",JSON.stringify(window.formData),ajaxHandler)
   window.ajaxHandler = ->
     alert "Sent feedback" #FIXME
