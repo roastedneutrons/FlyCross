@@ -37,7 +37,7 @@ showLegend = (flyMatrix,childGenotype) ->
          else
             fly.pLegendIdx = idx
    if not window.foundChild && childGenotype !=""
-      msg="The cross you have set up does not produce the progeny you have mentioned"
+      msg="The cross you have set up does not produce "+childGenotype
       topErrorMsgTpl = Handlebars.compile($("#topErrorMsgTpl").html())
       $("#topErrorMsg").html(topErrorMsgTpl(msg))
 

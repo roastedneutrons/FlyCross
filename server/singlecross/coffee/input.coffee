@@ -74,7 +74,13 @@ window.parseConstraintList = (s) ->
             return parseErr("Constraint format is: gene1,gene2,...,geneN:tag Eg: CyO,CyO:l") 
          genes = row.substr(0,i)
          tag = row.substr(i+1)
-         ret.push [parseCommaSepGenes(genes),tag]
+         if tag not in ['l','rl','s','rs','i']
+            return parseErr("Unsupported tag \'"+tag+"\' used in \""+row+"\"")
+         parsedGenes=parseCommaSepGenes(genes)
+         if parsedGenes.error
+            return parseErr(parsedGenes.error+" in \""+row+"\"")
+         else
+            ret.push [parsedGenes,tag]
    ret
 
 window.parseFly = (f,gender=null) ->
