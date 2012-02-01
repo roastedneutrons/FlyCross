@@ -3,21 +3,20 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>FlyCrosser</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../common/js/coffee-script.js"></script>
 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 <link rel="stylesheet" href="css/cross.css">
+<script type="text/coffeescript" src="coffee/navbar.coffee"></script>
+
+<script type="text/coffeescript">
+$ ->
+   $("#navAbout").addClass("active")
+</script>
+
 </head>
 <body>
-    <div class="topbar" data-scrollspy="scrollspy"> 
-      <div class="topbar-inner"> 
-        <div class="container"> 
-          <a class="brand" href="cross.html">flyCrosser</a> 
-          <ul class="nav"> 
-            <li><a href="help.html">Help</a></li> 
-            <li class="active"><a href="about.html">About</a></li> 
-          </ul> 
-        </div> 
-      </div> 
-    </div> 
+    <div id=navbar></div>
     <div class = "row" style="height:50px">&nbsp;</div>
 
     <div class = "row">

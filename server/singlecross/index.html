@@ -16,6 +16,7 @@
 <script type="text/coffeescript" src="coffee/input.coffee"></script>
 <script type="text/coffeescript" src="coffee/output.coffee"></script>
 <script type="text/javascript" src="../common/js/ajax.js"></script>
+<script type="text/coffeescript" src="coffee/navbar.coffee"></script>
 <script type='text/javascript'>
 handler = function(data) {
     //$("#response").text(data)
@@ -116,18 +117,7 @@ $ ->
 </head>
 <body>
 
-    <div class="topbar" data-scrollspy="scrollspy"> 
-      <div class="topbar-inner"> 
-        <div class="container"> 
-          <a class="brand" href="cross.html">flyCrosser</a> 
-          <ul class="nav"> 
-            <li><a href="help.html">Help</a></li> 
-            <li><a href="about.html">About</a></li> 
-          </ul> 
-        </div> 
-      </div> 
-    </div> 
-
+<div id=navbar></div>
 <div class = "row" style="height:50px">&nbsp;</div>
 <div id="input" class="row">
 <!--div class="row" style="padding-left:50px; padding-bottom:10px">
@@ -137,19 +127,19 @@ $ ->
 <div class="row">
      <div class='span8'>
        <div id="fatherBox" class="clearfix"> 
-          <label for="errorInput">Male&nbsp;&nbsp;&nbsp;</label> 
+          <label for="errorInput">Male*&nbsp;&nbsp;&nbsp;</label> 
           <input id="father" name="xlInput" size="30" type="text" />
           <span id="fatherMsg" align="center" class="help-block"></span> 
           <div align="center" id='ofather'></div>
        </div><!-- /clearfix --> 
        <div id="motherBox" class="clearfix"> 
-          <label for="errorInput">Female&nbsp;&nbsp;&nbsp;</label> 
+          <label for="errorInput">Female*&nbsp;&nbsp;&nbsp;</label> 
           <input id="mother" name="xlInput" size="30" type="text" />
           <span id="motherMsg" align="center" class="help-block"></span> 
           <div align="center" id='omother'></div>
        </div><!-- /clearfix --> 
        <div id="childBox" class="clearfix"> 
-          <label for="errorInput">Progeny&nbsp;&nbsp;&nbsp;<br/>(optional)&nbsp;&nbsp;&nbsp;</label> 
+          <label for="errorInput">Progeny&nbsp;&nbsp;&nbsp;</label> 
           <input id="child" name="xlInput" size="30" type="text" />
           <span id="childMsg" align="center" class="help-block"></span> 
           <div align="center" id='ochild'></div>
