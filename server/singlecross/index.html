@@ -19,8 +19,6 @@
 <script type="text/coffeescript" src="coffee/navbar.coffee"></script>
 <script type='text/javascript'>
 handler = function(data) {
-    //$("#response").text(data)
-    //window.punnet = JSON.parse(data)
     showPunnett(JSON.parse(data))
 }
 
@@ -104,6 +102,7 @@ window.outputMode = ->
    $("#input").hide()
    $("#output").show()
 $ ->
+   $("#navSinglecross").addClass("active")
    window.punnettReq = {}
    inputMode()
    $("#father").blur -> validateFly("father","M")
@@ -119,6 +118,8 @@ $ ->
 
 <div id=navbar></div>
 <div class = "row" style="height:50px">&nbsp;</div>
+
+<div class="row">
 <div id="input" class="row">
 <!--div class="row" style="padding-left:50px; padding-bottom:10px">
    Dummy test cross: <input type='text' id='crossNo' value='cross2'><input type='submit' value='Load' onClick='loadDummy();return false'  class="btn primary"/>
@@ -152,7 +153,7 @@ $ ->
        </div><!-- /clearfix --> 
        <div id="markersBox" class="clearfix"> 
           <label for="errorInput">Markers&nbsp;&nbsp;&nbsp;</label> 
-          <input id="markers" name="xlInput" size="30" type="text" />
+          <input id="markers" name="xlInput" size="30" type="text"/>
           <span id="markersMsg" align="center" class="help-block"></span> 
           <!--div align="center" id="omarkers"></div-->
        </div><!-- /clearfix --> 
@@ -185,16 +186,19 @@ $ ->
 </div>
 </div>
 <!--div id='response'></div-->
-<div id="output">
-   <div id="backBtnContainer"></div>
-   <div id = "topErrorMsg" class="row" style="text-align:center"></div>
-   <div class="row">
-      <div id="punSqr" class="span8"></div>
-      <div id="punHoverMsg" class="span8"></div>
+<div id="output" class="row">
+   <div class="span12 offset1">
+      <div id="backBtnContainer"></div>
+      <div id = "topErrorMsg" class="span8" style="text-align:center"></div>
+      <div class="row">
+         <div id="punSqr" class="span6"></div>
+         <div id="punHoverMsg" class="span6"></div>
+      </div>
    </div>
    <!--div class="row">
       <div  class="span8" id="pLegend"></div>   
    </div-->
+</div>
 </div>
 
 </body>

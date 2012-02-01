@@ -1,4 +1,4 @@
-import cgi,re
+import cgi
 
 from django.utils import simplejson as json
 

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>FlyCrosser</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="../common/js/coffee-script.js"></script>
+<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+<link rel="stylesheet" href="css/cross.css">
+<script type="text/javascript" src="../common/js/ajax.js"></script>
+<script type="text/coffeescript" src="coffee/navbar.coffee"></script>
+
+<script type="text/coffeescript">
+$ ->
+  $("#navFeedback").addClass("active")
+  window.formData = {}
+  $("#submit").click ->
+    window.formData['utilName']="singlecross"
+    window.formData['email']=$("#email").val()
+    window.formData['title']=$("#title").val()
+    window.formData['body']=$("#body").val()
+    #alert JSON.stringify(window.formData)
+    server.post("/feedback",JSON.stringify(window.formData),ajaxHandler)
+  window.ajaxHandler = ->
+    alert "Sent feedback" #FIXME
+</script>
+
+</head>
+<body>
+  <div id=navbar></div>
+  <div class = "row" style="height:50px">&nbsp;</div>
+  
+  <div class = "row">
+    <div class="span8" style="padding-left:30px">
+	    <h1>Feedback</h1>
+		  <form>
+		    <div class="row">
+			    <div class='span8'>
+				    <div id="emailBox" class="clearfix"> 
+					    <label for="errorInput">email*&nbsp;&nbsp;&nbsp;</label> 
+					    <input id="email" class="xlarge" size="40" type="text" />
+					    <span id="emailMsg" align="center" class="help-block">We'll keep it secret!</span> 
+				    </div><!-- /clearfix --> 
+				    <div id="titleBox" class="clearfix"> 
+					    <label for="errorInput">Title*&nbsp;&nbsp;&nbsp;</label> 
+					    <input id="title" class="xlarge" size="40" type="text" />
+					    <span id="titleMsg" align="center" class="help-block">What is it about</span> 
+				    </div><!-- /clearfix --> 
+				    <div id ="bodyBox" class="clearfix"> 
+					    <label for="errorInput">Message*&nbsp;&nbsp;&nbsp;</label> 
+					    <textarea id="body" class="xlarge" rows="10"></textarea> 
+					    <span id="bodyMsg" align="center" class="help-block">The details</span>
+				    </div><!-- /clearfix -->
+				    <div>
+              <input id="submit" type='button' value='Submit' class="btn primary"/><span id="submitMsg"></span>
+            </div>
+				  </div>
+		    </div>
+		  </form>
+    </div>
+  </div>
+</body>
+</html>
