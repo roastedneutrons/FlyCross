@@ -1,6 +1,10 @@
-### Working version is up and running at http://flycrosser.appspot.com
+### Working version is up and running at http://flyutils.konstrui.com
 
-A webapp(on google appengine) to check drosophila crosses
+This is source code for a bunch of webapps built to help folks working with Drosophila. As of now, only one app is up and running:singleCross
+
+### singleCross
+Running at http://flyutils.konstrui.com/singlecross
+A webapp (on google appengine) to analyze drosophila crosses
 
 #### Context:
 In many routine Drosophila crosses set up in research labs, it is important to know if the intended genes are passed down to the progeny. This is done using markers that are added along with the gene, or in trans with it. But in some cases, the same phenotype could arise out of different genotypes. In a usual fly lab scenario, this is unfravourable, as there is no one-isto-one relationship between genoptype and phenotype. This tool is designed to show the user when such phenotype clashes occur.
