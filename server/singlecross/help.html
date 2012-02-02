@@ -7,6 +7,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="../common/js/coffee-script.js"></script>
 <link rel="stylesheet" href="css/cross.css">
+<link rel="stylesheet" href="/common/css/flyutils.css">
 <script type="text/coffeescript" src="coffee/navbar.coffee"></script>
 
 <script type="text/coffeescript">
@@ -16,14 +17,81 @@ $ ->
 
 </head>
 <body>
-    <div id=navbar></div>
-    <div class = "row" style="height:50px">&nbsp;</div>
+   <div id=navbar></div>
+   <div class = "row" style="height:50px">&nbsp;</div>
 
-    <div class = "row">
-    <div class="span8" style="padding-left:30px">
+   <div class = "row">
+     <div class="span16" style="padding-left:30px">
        <h1>Help</h1>
-       Under Construction
-    </div>
-    </div>
+		 <div><p>In many routine Drosophila crosses set up in research labs, it is important to know if the intended genes are passed down to the progeny. This is done using markers that are added along with the gene, or in trans with it. But in some cases, the same phenotype could arise out of different genotypes. In a usual fly lab scenario, this is unfavourable, as there is no one-isto-one relationship between genoptype and phenotype. This tool is designed to show the user when such phenotype clashes occur.</p>
+
+		 <p>Another common cause of concern is genetic recombination. Genetic recombination is often undesirable in crosses set up in the lab, and balancer chromosomes are used widely to prevent this. The tool also shows when such recombinations will occur.</p>
+		 <h2>General guidelines</h2>
+		 <p>All genotypes follow standard Drosophila genetic nomenclature. <b>;</b> separates different pairs of chromosomes. <b>/</b> separates chromosomes within a pair. If no <b>/</b> is present, it is assumed to be homozygous. And commas separate genes within a chromosome. And <b>+</b> denotes a wild-type chromosome. An example valid fly would be: <b>+;UAS TntG, UAS GFP/CyO;tub Gal80ts</b> and would be interpreted as <b>+/+ ; (UAS TntG),(UAS GFP)/CyO ; (tub Gal80ts)/(tub Gal80ts)</b></p>
+		 </div>
+		 <div class="row">
+		   <div class="span6 helpColumn">
+		     <h2>Input pane</h2>
+		     <div class="helpItem">
+		       <h4>Male</h4>
+		       <p>This field is mandatory. Enter the genotype of the male parent, using standard drosophila gene nomenclature. Make sure that there is a Y chromosome in the first pair. And make sure it is an uppercase(capital) Y. Example: <b>+/Y ; OK371 Gal4 ; MKRS</b> </p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Female</h4>
+		       <p>This field is mandatory. Enter the genotype of the female parent, using standard drosophila gene nomenclature. Make sure that there is no Y chromosome in the first pair. Example: <b>+/FM7a ; + ; shi ts</b> </p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Progeny</h4>
+		       <p>This field is optional. Enter the genotype of the F1 progeny you are interested in. Example: <b>Y/FM7a ; OK371 Gal4/+ ; shi ts/MKRS</b> could be the progeny you are interested in.</p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Balancers</h4>
+		       <p>This field is optional. Enter all the balancers used in the cross. Use commas to separate the genes. Example: <b>FM7a,MKRS</b></p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Markers</h4>
+		       <p>This field is optional. Enter all the markers used in the cross. Use commas to separate the genes. If the first letter of a marker is uppercase(capital), it is treated as a dominant marker, else it is treated as recessive. Example: <b>FM7a,Tb,e</b> where <b>FM7a</b>, <b>Tb</b> are treated as dominant and <b>e</b> is treated as recessive.</p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Constraints</h4>
+		       <p>This field is optional. Constraints are ways of mentioning interactions between genes which affect the cross.</p>
+		       <p>The format is <b>gene1,gene2....geneN:tag</b> for a single constraint. And only one constraint per line. where <b>tag</b> can be one of these:<br/>
+		       l  - lethal <br/>
+		       rl - rescues from lethality <br/>
+		       i  - marker interference <br/>
+		       s  - sterile <br/>
+		       rs - rescues sterility <br/></p>
+		       <p><h4>l - lethal</h4>
+		       Constraint should have atleast one gene. Example: <b>OK371 Gal4, UAS TntG :l</b> or <b>shi:l</b>
+		       </p>
+		       <p><h4>rl - rescues from lethality</h4>
+		       Constraint should have atleast two genes. It will rescue the lethality caused by any subset of the genes mentioned. Example: <b>OK371 Gal4, UAS TntG , tub Gal80:rl</b> rescues the lethality caused by <b>OK371 Gal4, UAS TntG :l</b>
+		       </p>
+		       <p><h4>i - marker interference</h4>
+		       Constraint should have atleast two genes. Some markers interfere with each other, and make it phenotypically indistinguishable. For example, Sb and Pin both affect the hair. But screening for a fly containing both of them is a bad idea. Example: <b>Sb,Pin:i</b>
+		       </p>
+		       <p><h4>s - sterile</h4>
+		       Constraint should have atleast one gene. Some combinations of genes make a fly sterile. When this happens in the progeny, this does not have any consequences unless that fly is intended to be used in another cross. Example: <b>FM7a,FM7a:s</b>
+		       </p>
+		       <p><h4>rs - rescues from sterility</h4>
+		       Constraint should have atleast two genes. Rescues sterilty caused by anysubset of genes. Example: <b>a,b,c:rs</b> rescues lethality caused by <b>a,c:rs</b>
+		       </p>
+		     </div>
+		   </div>
+		   <div class="span6 offset1 helpColumn">
+		     <h2>Output pane</h2>
+		     <div class="helpItem">
+		       <h4>Punnett Square</h4>
+		       <p> This panel shows all the possible outcomes from the cross. And highlights a progeny of your choice. The background color of each cell represents a phenotype, and the foreground color represents genotype. A dark grey background colour represents lethality. Hover the mouse pointer of each cell to get details. All flies with similar phenotype are highlighted. If the highliht is red, it means there is a phenotype clash (i.e. a fly with a different genotype which has the same phenotype as the selected cell). If it is blue, it means there is no phenotype clash with the highlighted cell.</p>
+		       <p>Click on a cell, so that the info panel regarding it doesnt vanish away when you hover the mouse elsewhere. Clcik anywhere outide to clear the selection</p>
+		     </div>
+		     <div class="helpItem">
+		       <h4>Info Panel</h4>
+		       <p>This panel shows all the details of the selected fly, including recombination warnings, lethality, sterility and phenotype clashes</p>
+		     </div>
+		   </div>
+		 </div>
+     </div>
+   </div>
 </body>
 </html>
