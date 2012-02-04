@@ -231,6 +231,15 @@ window.loadDummy = (crossNo)->
    $('#markers').val(data["markers"])
    $('#constraints').val(data["constraints"])
 
+window.clearForm = ->
+   for id in ["father","mother","child","balancers","markers","constraints"]
+      $("#"+id).val("")
+      $("#"+id+"Box").removeClass("error")
+      $("#"+id+"Box").removeClass("success")
+      $("#"+id+"Msg").html("")
+      $('#o'+id).html("")
+      delete window.punnettReq[id]
+
 window.makePunnettRequest = ->  
    validateFly("father","M")
    validateFly("mother","F")
