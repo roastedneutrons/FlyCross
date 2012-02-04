@@ -19,7 +19,7 @@
 <script type="text/coffeescript" src="coffee/navbar.coffee"></script>
 <script type='text/javascript'>
 handler = function(data) {
-    showPunnett(JSON.parse(data))
+    drawOutputView(JSON.parse(data))
 }
 
 </script>
@@ -48,10 +48,10 @@ handler = function(data) {
          <B>{{this}}</B><br/>
       {{/each}}
    {{/if}}
-   {{#if clashingGenotypes}}
+   {{#if clashes.clashing}}
       <span style="color:#880000"><B>Clashing Genotypes: </B></span><br/>
-      {{#each clashingGenotypes}}
-         {{this}}<br/>
+      {{#each clashes.clashing}}
+         {{this.genotype}}<br/>
       {{/each}}
    {{/if}}
 </div>
@@ -70,10 +70,10 @@ handler = function(data) {
    </div></div>
 </script>
 <script id="punHdrTpl" type="text/x-handlebars-template">
-      <tr><td>{{#each fly2Axis}}</td><td class="punHdrCell punTitleCell" gamete="{{this}}"><div class ="vertical">{{this}}</div>{{/each}}</td></tr>
+      <tr><td>{{#each this}}</td><td class="punHdrCell punTitleCell" title="{{name}}"><div class ="vertical">{{shortName}}</div>{{/each}}</td></tr>
 </script>
 <script id="punRowTpl" type="text/x-handlebars-template">
-      <tr class="punRow" ><td class="punTitleCell" gamete="{{gamete}}">{{gamete}}{{#each flies}}</td><td class="punCell"><div class="pDiv"><div class="gDiv"></div></div>{{/each}}</td></tr>
+      <tr class="punRow" ><td class="punTitleCell" title="{{gamete.name}}">{{gamete.shortName}}{{#each flies}}</td><td class="punCell"><div class="pDiv"><div class="gDiv"></div></div>{{/each}}</td></tr>
 </script>
 <script id="punTpl" type="text/x-handlebars-template">
     <table class ="punTbl" id='punTable'>
@@ -192,7 +192,7 @@ $ ->
       <div id = "topErrorMsg" class="span8" style="text-align:center"></div>
       <div class="row">
          <div id="punSqr" class="span6"></div>
-         <div id="punHoverMsg" class="span6"></div>
+         <div id="infoPanel" class="span6"></div>
       </div>
    </div>
    <!--div class="row">
