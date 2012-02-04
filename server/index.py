@@ -7,9 +7,10 @@ from google.appengine.api import mail
 from django.utils import simplejson as json
 
 class MainHandler(webapp.RequestHandler):
-    def get(self):
-        self.response.out.write("""<a href=\"/singlecross/index.html\">Single Cross</a><br/>
-                <a href=\"/multicross/index.html\">Multi stepped Crosses</a>""")
+	def get(self):
+	   self.redirect("/common/index.html")
+#		self.response.out.write("""<a href=\"/singlecross/index.html\">Single Cross</a><br/>
+#				<a href=\"/multicross/index.html\">Multi stepped Crosses</a>""")
 
 class singlecross(webapp.RequestHandler):
 	def get(self):
