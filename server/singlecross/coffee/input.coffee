@@ -61,7 +61,8 @@ window.parseCommaSepGenes = (s) ->
                   state = 0
    if openBrackets
       return parseErr("Brackets do not match",frag)
-   ret.push gene
+   if gene.length >0
+      ret.push gene
    return ret 
 
 window.parseConstraintList = (s) ->
@@ -80,8 +81,17 @@ window.parseConstraintList = (s) ->
          if parsedGenes.error
             return parseErr(parsedGenes.error+" in \""+row+"\"")
          else
-            ret.push [parsedGenes,tag]
-   ret
+            if tag in ['l','s']
+               if parsedGenes.length<1
+                  return parseErr("At least one gene required in \""+row+"\"")
+               else
+                  ret.push [parsedGenes,tag]
+            else if tag in ['rl','rs','i']
+               if parsedGenes.length<2
+                  return parseErr("At least two genes required in \""+row+"\"")
+               else
+                  ret.push [parsedGenes,tag]
+   return ret
 
 window.parseFly = (f,gender=null) ->
    ret = []
