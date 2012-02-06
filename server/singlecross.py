@@ -1,9 +1,9 @@
-import cgi
+import cgi,logging
 
 from django.utils import simplejson as json
 
 from Flies import *
-import dummyFlies
+#import dummyFlies
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -11,7 +11,9 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 class Analyzer(webapp.RequestHandler):
 	def post(self):
+		ip = self.request.remote_addr
 		jsonDataFromCS=json.loads(cgi.escape(self.request.body))
+		logging.info(ip+" | "+cgi.escape(self.request.body))
 		constraints=jsonDataFromCS['constraints']
 		balancers=jsonDataFromCS['balancers']
 		markers=jsonDataFromCS['markers']
